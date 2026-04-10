@@ -1,13 +1,17 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
+<<<<<<< HEAD
+  <RouterView />
+=======
   <div class="container">
     <HelloWorld />
     <h1>Welcome to dlti!</h1>
     <p>This is a Vue 3 + Vite project deployed on Cloudflare Pages.</p>
   </div>
+>>>>>>> origin/main
 </template>
 
 <style>
