@@ -1,446 +1,188 @@
-// 题目配置 - 40道DL球迷版MBTI测试题（每题5个选项）
-
-export const dimensions = ['EI', 'SN', 'TF', 'JP']
+// 20道题，每题5选项，tags均衡分布
+// A/B/C/D/E 分别对应 热血派/理性派/战斗派/死忠派/中立派 为主
+// 每题同时有多个类型的tags
 
 export const questions = [
   {
-    id: 1,
-    text: '观看林书豪比赛时，你更喜欢？',
-    options: [
-      { text: '去现场感受热血氛围，和球迷一起欢呼', scores: { EI: 2 } },
-      { text: '约朋友一起喝啤酒看直播，边看边聊', scores: { EI: 1, SN: 1 } },
-      { text: '安静在家看回放，仔细分析他的战术', scores: { JP: 2 } },
-      { text: '独自研究他的传球集锦和技巧', scores: { IN: 1, JP: 1 } },
-      { text: '无所谓，哪里看都行', scores: { IP: 1 } },
+    id: 1, text: '观看大连队比赛时，你更喜欢？', options: [
+      { text: '去现场感受热血氛围，我是球迷组织的一员', scores: 'A', tags: ['热血派', '远征军'] },
+      { text: '约朋友一起喝凯龙看，边看边聊', scores: 'E', tags: ['中立派', '社交球迷'] },
+      { text: '安静在家看，仔细分析战术', scores: 'B', tags: ['理性派'] },
+      { text: '去现场看球加油', scores: 'C', tags: ['战斗派', '远征军'] },
+      { text: '我从来不看', scores: 'D', tags: ['死忠派', '辽宁铁人'] },
     ]
   },
   {
-    id: 2,
-    text: '林书豪「林疯狂」时期，你会？',
-    options: [
-      { text: '激动地发朋友圈，分享给所有好友', scores: { EI: 2 } },
-      { text: '在球迷群里热烈讨论，分析他的表现', scores: { EI: 1, SN: 1 } },
-      { text: '默默收藏比赛录像，反复研究', scores: { IP: 1, JP: 1 } },
-      { text: '写一篇深度分析文章', scores: { IN: 2 } },
-      { text: '没什么特别感觉，看淡了', scores: { TN: 1 } },
+    id: 2, text: '球队苦苦保级，难求一胜，你会？', options: [
+      { text: '持续支持大连队，直至最后一刻', scores: 'A', tags: ['热血派'] },
+      { text: '减少观看次数', scores: 'B', tags: ['理性派', '辽宁铁人'] },
+      { text: '没什么特别感觉，看淡了', scores: 'E', tags: ['中立派'] },
+      { text: '发帖抱怨：首发都是关系户', scores: 'C', tags: ['战斗派'] },
+      { text: '骂球队高层，要求退钱', scores: 'D', tags: ['死忠派'] },
     ]
   },
   {
-    id: 3,
-    text: '当林书豪受伤缺阵时，你？',
-    options: [
-      { text: '担心得睡不着，到处找最新消息', scores: { TF: 2 } },
-      { text: '默默等待，相信他会强势回归', scores: { TJ: 1 } },
-      { text: '去翻他以前的精彩集锦解闷', scores: { SN: 1, JP: 1 } },
-      { text: '理性分析伤病对球队的影响', scores: { TN: 2 } },
-      { text: '希望他好好休息，不急', scores: { IF: 1 } },
+    id: 3, text: '当大连队购买外援达不到预期你会？', options: [
+      { text: '买卖有赚有赔其实很正常', scores: 'E', tags: ['中立派'] },
+      { text: '默默等待，相信只是最近状态不好', scores: 'A', tags: ['热血派'] },
+      { text: '仔细分析达不到预期的原因，写帖子分析', scores: 'B', tags: ['理性派'] },
+      { text: '我不想知道为什么不行我只是支持球队', scores: 'D', tags: ['死忠派'] },
+      { text: '表达观点，早就不看好了', scores: 'C', tags: ['战斗派'] },
     ]
   },
   {
-    id: 4,
-    text: '你喜欢林书豪的哪种球风？',
-    options: [
-      { text: '华丽传球，助攻数据爆表', scores: { SN: 2 } },
-      { text: '冷静组织，关键时刻不手软', scores: { TJ: 2 } },
-      { text: '爆发突破，关键球绝杀', scores: { EP: 2 } },
-      { text: '团队至上，牺牲数据成全队友', scores: { TF: 2 } },
-      { text: '全面均衡，没有短板', scores: { NT: 1 } },
+    id: 4, text: '球队在一场艰难的比赛中绝杀你会？', options: [
+      { text: '怒爆粗口发泄之前的郁闷', scores: 'C', tags: ['战斗派', '王大爷'] },
+      { text: '和周围的人左拥右抱，一起庆祝', scores: 'A', tags: ['热血派', '远征军'] },
+      { text: '冷静的起来鼓掌表达开心', scores: 'B', tags: ['理性派'] },
+      { text: '没有完全感到兴奋，因为之前的表现不满足预期', scores: 'D', tags: ['死忠派'] },
+      { text: '脱下上衣，直接冲场', scores: 'C', tags: ['战斗派', '王大爷'] },
     ]
   },
   {
-    id: 5,
-    text: '在球迷群里，你通常是？',
-    options: [
-      { text: '活跃气氛的开心果', scores: { EI: 2, EP: 1 } },
-      { text: '理性分析的技术流', scores: { IN: 1, TN: 1 } },
-      { text: '默默围观潜水党', scores: { IP: 2 } },
-      { text: '组织活动的群管理', scores: { EI: 1, TJ: 1 } },
-      { text: '偶尔冒泡的潜水员', scores: { IP: 1 } },
+    id: 5, text: '对于"文明观赛，争做滨城好青年"你的态度是？', options: [
+      // ... 继续
+      { text: '严格遵守规则，认为文明观赛是对的', scores: 'D', tags: ['死忠派'] },
+      { text: '保持沉默，心里十分不认可这种限制', scores: 'C', tags: ['战斗派'] },
+      { text: '我并不关心我只是看球的', scores: 'E', tags: ['中立派'] },
+      { text: '我可去XXX的', scores: 'C', tags: ['战斗派'] },
+      { text: '我们这一次一定要体现出大连文明城市', scores: 'A', tags: ['热血派', '王大爷'] },
+    ]
+  },
+  // 简化处理 - 批量重写剩余题目
+  {
+    id: 6, text: '大连队有新球员加入时，你最关心？', options: [
+      { text: '这笔买卖是否合适，值不值', scores: 'B', tags: ['理性派'] },
+      { text: '他能否适应球队，融入体系', scores: 'B', tags: ['理性派'] },
+      { text: '他的数据会有什么变化', scores: 'B', tags: ['理性派'] },
+      { text: '能和本土球员有更多配合吗', scores: 'E', tags: ['中立派'] },
+      { text: '关注他的上场时间，能不能打上比赛', scores: 'D', tags: ['死忠派'] },
     ]
   },
   {
-    id: 6,
-    text: '林书豪加入新球队时，你最关心？',
-    options: [
-      { text: '球队实力和夺冠前景', scores: { TN: 2 } },
-      { text: '他能否适应新环境', scores: { TF: 2 } },
-      { text: '他的数据会有什么变化', scores: { SN: 2 } },
-      { text: '能和中国球员有更多互动吗', scores: { SF: 2 } },
-      { text: '关注他的上场时间', scores: { SJ: 1 } },
+    id: 7, text: '你会为大连队做最大的事是？', options: [
+      { text: '去现场支持大连队', scores: 'A', tags: ['热��派', '远征军'] },
+      { text: '不畏路途前去远征客场', scores: 'A', tags: ['远征军'] },
+      { text: '我已经将大连队徽纹在身上!', scores: 'D', tags: ['收藏癖'] },
+      { text: '为大连队流眼泪', scores: 'A', tags: ['热血派'] },
+      { text: '足球只是生活的一部分', scores: 'E', tags: ['中立派', '云球迷'] },
     ]
   },
   {
-    id: 7,
-    text: '你会为林书豪做哪些事？',
-    options: [
-      { text: '买他的球衣去现场支持', scores: { EI: 1, SF: 1 } },
-      { text: '制作应援视频和周边', scores: { NP: 2 } },
-      { text: '认真学篮球模仿他的动作', scores: { SJ: 2 } },
-      { text: '写邮件鼓励他或寄礼物', scores: { IF: 2 } },
-      { text: '只在朋友圈点赞支持', scores: { IP: 1 } },
+    id: 8, text: '看到有人黑大连队，你？', options: [
+      { text: '立刻回击据理力争', scores: 'C', tags: ['战斗派'] },
+      { text: '冷静地列举事实反驳', scores: 'B', tags: ['理性派'] },
+      { text: '默默拉黑不想争论', scores: 'E', tags: ['中立派'] },
+      { text: '进行对线，骂个你死我活', scores: 'C', tags: ['战斗派'] },
+      { text: '举报评论不想看到', scores: 'C', tags: ['战斗派'] },
     ]
   },
   {
-    id: 8,
-    text: '看到有人黑林书豪，你？',
-    options: [
-      { text: '立刻回击据理力争', scores: { EP: 2 } },
-      { text: '冷静地列举事实反驳', scores: { TJ: 2 } },
-      { text: '默默拉黑不想争论', scores: { IP: 2 } },
-      { text: '忽略他，不值得浪费时间', scores: { IN: 1, JP: 1 } },
-      { text: '举报评论不想看到', scores: { IJ: 1 } },
+    id: 9, text: '你欣赏大连队的什么品质？', options: [
+      { text: '永不放弃的精神', scores: 'A', tags: ['热血派', '冠军球迷'] },
+      { text: '骄傲的大连足球城血脉', scores: 'D', tags: ['死忠派'] },
+      { text: '乐观开朗的性格魅力', scores: 'A', tags: ['热血派'] },
+      { text: '不断进化的技战术水平', scores: 'B', tags: ['理性派'] },
+      { text: '对球迷的真诚回馈', scores: 'E', tags: ['中立派'] },
     ]
   },
   {
-    id: 9,
-    text: '你欣赏林书豪的什么品质？',
-    options: [
-      { text: '永不言弃的奋斗精神', scores: { TJ: 2 } },
-      { text: '谦逊低调的为人处世', scores: { IF: 2 } },
-      { text: '乐观开朗的性格魅力', scores: { EF: 2 } },
-      { text: '不断进化的球商球技', scores: { IN: 2 } },
-      { text: '对粉丝的真诚回馈', scores: { SF: 1 } },
+    id: 10, text: '见到大连队球员，你会？', options: [
+      { text: '和他们合影签名，大喊大连', scores: 'A', tags: ['热血派', '王大爷'] },
+      { text: '请教足球技巧和训练方法', scores: 'B', tags: ['理性派'] },
+      { text: '安静地要个签名就好', scores: 'D', tags: ['收藏癖'] },
+      { text: '聊聊人生规划和信仰', scores: 'B', tags: ['理性派'] },
+      { text: '质问他，为什么那个点球没进', scores: 'C', tags: ['战斗派'] },
     ]
   },
   {
-    id: 10,
-    text: '如果你有机会见林书豪，你想？',
-    options: [
-      { text: '和他合影签名，大喊我爱你', scores: { EP: 2, EF: 1 } },
-      { text: '请教篮球技巧和训练方法', scores: { IN: 1, SJ: 1 } },
-      { text: '安静地要个签名就好', scores: { IP: 2 } },
-      { text: '聊聊人生规划和信仰', scores: { IF: 2, IN: 1 } },
-      { text: '问他下一个目标是什么', scores: { NT: 1 } },
+    id: 11, text: '你更喜欢大连队伍哪个时期？', options: [
+      { text: '辉煌期 - 夺冠那些年才是真正的大连队', scores: 'D', tags: ['死忠派'] },
+      { text: '有苦有甜 - 那些年的起起伏伏', scores: 'D', tags: ['死忠派'] },
+      { text: '金元时代 - 我就喜欢大连赢', scores: 'A', tags: ['热血派', '冠军球迷'] },
+      { text: '现在 - 重新出发，复兴城市的光辉', scores: 'A', tags: ['热血派'] },
+      { text: '每个时期都喜欢，城市球迷，只为大连这俩个字', scores: 'D', tags: ['死忠派'] },
     ]
   },
   {
-    id: 11,
-    text: '你更喜欢林书豪职业生涯哪个时期？',
-    options: [
-      { text: '林疯狂时期 - 惊天逆袭', scores: { EP: 2, NP: 1 } },
-      { text: '火箭时期 - 稳定成长', scores: { SJ: 2 } },
-      { text: '老鹰时期 - 替补也能发光', scores: { IF: 1, IJ: 1 } },
-      { text: '首钢/高雄时期 - 另辟蹊径', scores: { NP: 2 } },
-      { text: '每个时期都喜欢', scores: { TF: 1 } },
+    id: 12, text: '你认为大连是否长期在裁判的判罚上吃亏？', options: [
+      { text: '并不是，只不过我支持大连才有这种感觉', scores: 'B', tags: ['理性派'] },
+      { text: '裁判很菜，大连只是运气不好', scores: 'E', tags: ['中立派'] },
+      { text: '有事大连办，没事办大连', scores: 'C', tags: ['战斗派'] },
+      { text: '只有个别几个裁判一直针对大连', scores: 'C', tags: ['战斗派'] },
+      { text: '裁判的判罚十分正确', scores: 'D', tags: ['死忠派'] },
     ]
   },
   {
-    id: 12,
-    text: '看比赛时你的习惯是？',
-    options: [
-      { text: '大喊大叫，激动得坐不住', scores: { EP: 2 } },
-      { text: '默默记笔记分析战术', scores: { IJ: 2, TN: 1 } },
-      { text: '边刷手机边看，有时抬头', scores: { IP: 2 } },
-      { text: '全神贯注，紧张得手心出汗', scores: { IJ: 1, FN: 1 } },
-      { text: '边吃东西边看，比较放松', scores: { EP: 1, SP: 1 } },
+    id: 13, text: '你和其他大连球迷交流时更在意？', options: [
+      { text: '能不能合得来，气氛开心', scores: 'A', tags: ['社交球迷'] },
+      { text: '对方懂不懂球，有共同话题', scores: 'B', tags: ['理性派'] },
+      { text: '互相分享资源和消息', scores: 'B', tags: ['理性派'] },
+      { text: '尊重彼此的看法，不争对错', scores: 'E', tags: ['中立派'] },
+      { text: '看对方是否真诚友善', scores: 'A', tags: ['社交球迷'] },
     ]
   },
   {
-    id: 13,
-    text: '你和其他DL球迷交流时更在意？',
-    options: [
-      { text: '能不能合得来，气氛开心', scores: { EF: 2 } },
-      { text: '对方懂不懂球，有共同话题', scores: { IN: 2 } },
-      { text: '互相分享资源和消息', scores: { SN: 2 } },
-      { text: '尊重彼此的看法，不争对错', scores: { IF: 2 } },
-      { text: '看对方是否真诚友善', scores: { SF: 1 } },
+    id: 14, text: '关于大连队的发展建议，你更倾向？', options: [
+      { text: '加大投入，冲击冠军', scores: 'A', tags: ['热血派', '冠军球迷'] },
+      { text: '稳定能有个球看就行', scores: 'E', tags: ['中立派'] },
+      { text: '做好青训，着眼未来', scores: 'B', tags: ['理性派'] },
+      { text: '专注公益和球迷文化', scores: 'A', tags: ['热血派'] },
+      { text: '做自己喜欢的事就好', scores: 'E', tags: ['中立派'] },
     ]
   },
   {
-    id: 14,
-    text: '关于林书豪的发展建议，你更倾向？',
-    options: [
-      { text: '坚持NBA，追逐冠军梦', scores: { TJ: 2, NP: 1 } },
-      { text: '转型做篮球训练营', scores: { SJ: 2 } },
-      { text: '发展个人品牌和商业', scores: { EN: 2 } },
-      { text: '专注公益和慈善事业', scores: { IF: 2 } },
-      { text: '做自己喜欢的事就好', scores: { NP: 1 } },
+    id: 15, text: '你是什么时候开始喜欢大连队的？', options: [
+      { text: '这是一个问题？', scores: 'D', tags: ['死忠派'] },
+      { text: '外地人，来大连后才知道的', scores: 'D', tags: ['死忠派', '收藏癖'] },
+      { text: '我从小就是大连球迷', scores: 'D', tags: ['死忠派'] },
+      { text: '朋友推荐后入坑的', scores: 'A', tags: ['热血派', '冠军球迷'] },
+      { text: '最近才开始关注', scores: 'E', tags: ['中立派', '云球迷'] },
     ]
   },
   {
-    id: 15,
-    text: '你是什么时候开始喜欢林书豪的？',
-    options: [
-      { text: '林疯狂时期就关注了', scores: { EP: 1, SJ: 1 } },
-      { text: '他来CBA后才知道的', scores: { SF: 2 } },
-      { text: '很早就开始关注他了', scores: { IJ: 2 } },
-      { text: '朋友推荐后入坑的', scores: { EF: 1, SF: 1 } },
-      { text: '最近才开始关注他', scores: { SP: 1 } },
+    id: 16, text: '用什么词形容大连队最贴切？', options: [
+      { text: '热血 - 永不放弃', scores: 'A', tags: ['热血派'] },
+      { text: '稳定 - 持续输出', scores: 'B', tags: ['理性派'] },
+      { text: '血臭 - 不惜看吧', scores: 'C', tags: ['战斗派'] },
+      { text: '传承 - 足球城', scores: 'D', tags: ['死忠派'] },
+      { text: '坚持 - 从不认输', scores: 'A', tags: ['热血派'] },
     ]
   },
   {
-    id: 16,
-    text: '林书豪用什么词形容最贴切？',
-    options: [
-      { text: '热血 - 永不放弃', scores: { EP: 2 } },
-      { text: '稳定 - 持续输出', scores: { IJ: 2 } },
-      { text: '全能 - 攻防一体', scores: { TN: 2 } },
-      { text: '温暖 - 谦逊有爱', scores: { IF: 2 } },
-      { text: '坚持 - 从不认输', scores: { TJ: 1 } },
+    id: 17, text: '你希望大连队未来怎样？', options: [
+      { text: '复兴城市的光辉', scores: 'A', tags: ['热血派'] },
+      { text: '稳定立足中超', scores: 'D', tags: ['死忠派'] },
+      { text: '转型培养新人', scores: 'B', tags: ['理性派'] },
+      { text: '做自己想做的事就好', scores: 'E', tags: ['中立派'] },
+      { text: '各级别大连队都稳定运营', scores: 'D', tags: ['死忠派', '收藏癖'] },
     ]
   },
   {
-    id: 17,
-    text: '你希望林书豪未来怎样？',
-    options: [
-      { text: '回NBA再创辉煌', scores: { NJ: 2 } },
-      { text: '在CBA拿个冠军', scores: { SJ: 2 } },
-      { text: '转型教练培养新人', scores: { IJ: 1, TF: 1 } },
-      { text: '做自己想做的事就好', scores: { NP: 2 } },
-      { text: '继续在篮球领域深耕', scores: { SJ: 1 } },
+    id: 18, text: '你看球的同时也会踢球么？', options: [
+      { text: '我自己就是球员', scores: 'B', tags: ['理性派'] },
+      { text: '踢从小就踢球', scores: 'B', tags: ['理性派'] },
+      { text: '我只看，不踢', scores: 'E', tags: ['云球迷'] },
+      { text: '以前踢，现在只看', scores: 'D', tags: ['死忠派'] },
+      { text: '看球就够了，踢球太累', scores: 'E', tags: ['中立派'] },
     ]
   },
   {
-    id: 18,
-    text: '和其他球迷吵架，你通常？',
-    options: [
-      { text: '据理力争，必须赢', scores: { ET: 2 } },
-      { text: '摆事实讲道理', scores: { IT: 1, TJ: 1 } },
-      { text: '算了懒得吵', scores: { IP: 2 } },
-      { text: '转移话题避免冲突', scores: { IF: 2 } },
-      { text: '直接退出群聊眼不见为净', scores: { IP: 1 } },
+    id: 19, text: '你怎么看Ultras死忠球迷文化?', options: [
+      { text: '这就是球迷该有的样子', scores: 'A', tags: ['热血派', '远征军'] },
+      { text: '太极端，不太能接受', scores: 'E', tags: ['中立派'] },
+      { text: '很热血，但要注意安全', scores: 'A', tags: ['热血派'] },
+      { text: '尊重他们的选择', scores: 'E', tags: ['中立派'] },
+      { text: '关我什么事', scores: 'D', tags: ['死忠派', '辽宁铁人'] },
     ]
   },
   {
-    id: 19,
-    text: '你收集林书豪的哪些周边？',
-    options: [
-      { text: '球衣、球鞋等大件', scores: { SJ: 2, SF: 1 } },
-      { text: '海报、照片、贴纸', scores: { SP: 2 } },
-      { text: '签名和限定版', scores: { IN: 1, JP: 1 } },
-      { text: '不太收集周边', scores: { IN: 2 } },
-      { text: '只收集有纪念意义的', scores: { IJ: 1 } },
-    ]
-  },
-  {
-    id: 20,
-    text: '林书豪比赛最后时刻，你会？',
-    options: [
-      { text: '紧张到不敢看', scores: { IF: 2 } },
-      { text: '全神贯注紧盯屏幕', scores: { IJ: 2 } },
-      { text: '大声喊口号加油', scores: { EP: 2 } },
-      { text: '默默祈祷', scores: { IN: 1, IF: 1 } },
-      { text: '保持冷静等待结果', scores: { IT: 1 } },
-    ]
-  },
-  {
-    id: 21,
-    text: '你喜欢什么类型的林书豪集锦？',
-    options: [
-      { text: '过人突破炸框集锦', scores: { SP: 2 } },
-      { text: '妙传助攻集锦', scores: { NF: 2 } },
-      { text: '绝杀时刻合集', scores: { TJ: 2 } },
-      { text: '励志语录混剪', scores: { NF: 1, IF: 1 } },
-      { text: '比赛全场回放', scores: { SJ: 1 } },
-    ]
-  },
-  {
-    id: 22,
-    text: '你更愿意参加哪种DL球迷活动？',
-    options: [
-      { text: '线下看球聚会', scores: { EI: 2 } },
-      { text: '篮球训练营体验', scores: { SJ: 2 } },
-      { text: '球星见面会', scores: { ES: 1, SF: 1 } },
-      { text: '线上讨论社群', scores: { IN: 2 } },
-      { text: '不太想参加活动', scores: { IP: 1 } },
-    ]
-  },
-  {
-    id: 23,
-    text: '当林书豪做出精彩传球时，你？',
-    options: [
-      { text: '拍手叫好大喊666', scores: { EP: 2 } },
-      { text: '欣赏他的球商和大局观', scores: { IN: 2 } },
-      { text: '分析这次传球的意图', scores: { TN: 2 } },
-      { text: '感动于他的无私', scores: { FN: 2 } },
-      { text: '记下来这个精彩瞬间', scores: { IJ: 1 } },
-    ]
-  },
-  {
-    id: 24,
-    text: '你认同林书豪的哪种生活态度？',
-    options: [
-      { text: '信仰第一，永不放弃', scores: { IF: 2, IJ: 1 } },
-      { text: '努力训练，不断进步', scores: { SJ: 2 } },
-      { text: '享受篮球，快乐至上', scores: { EP: 2 } },
-      { text: '不断挑战，突破自我', scores: { NT: 2 } },
-      { text: '平衡生活和工作', scores: { IJ: 1 } },
-    ]
-  },
-  {
-    id: 25,
-    text: '你更关注林书豪的？',
-    options: [
-      { text: '场上数据和表现', scores: { SN: 2 } },
-      { text: '场下人格和故事', scores: { NF: 2 } },
-      { text: '场内外综合发展', scores: { NT: 1, NF: 1 } },
-      { text: '不太关注场下', scores: { ST: 2 } },
-      { text: '他和球迷的互动', scores: { EF: 1 } },
-    ]
-  },
-  {
-    id: 26,
-    text: '你如何评价林书豪的职业选择？',
-    options: [
-      { text: '勇敢追梦，值得尊敬', scores: { NF: 2 } },
-      { text: '理性选择，无可厚非', scores: { ST: 2 } },
-      { text: '尊重他的任何决定', scores: { IF: 2 } },
-      { text: '希望他做更挑战的选择', scores: { NT: 2 } },
-      { text: '每个选择都有道理', scores: { TF: 1 } },
-    ]
-  },
-  {
-    id: 27,
-    text: '你和其他球迷聊天开场通常是？',
-    options: [
-      { text: '诶你看林书豪了吗', scores: { EI: 2 } },
-      { text: '那场比赛你看了吗', scores: { ES: 2 } },
-      { text: '我觉得他应该...', scores: { IN: 1, TJ: 1 } },
-      { text: '默默等对方先开口', scores: { IP: 2 } },
-      { text: '发表情包活跃气氛', scores: { EP: 1 } },
-    ]
-  },
-  {
-    id: 28,
-    text: '林书豪最让你感动的一刻是？',
-    options: [
-      { text: '林疯狂时期带领球队连胜', scores: { EP: 1, NF: 1 } },
-      { text: '伤病后坚持康复训练', scores: { IJ: 1, TF: 1 } },
-      { text: '夺冠后喜极而泣', scores: { EF: 2 } },
-      { text: '分享信仰时的真诚', scores: { IF: 2 } },
-      { text: '每次看到他微笑都很暖', scores: { SF: 1 } },
-    ]
-  },
-  {
-    id: 29,
-    text: '你会向朋友怎么介绍林书豪？',
-    options: [
-      { text: 'NBA华裔球星，超厉害', scores: { ES: 2 } },
-      { text: '一个很励志的篮球运动员', scores: { NF: 2 } },
-      { text: '球商很高，组织能力超强', scores: { IN: 2 } },
-      { text: '人好球技也好的优质偶像', scores: { SF: 1, IF: 1 } },
-      { text: '哈佛毕业的高材生', scores: { TJ: 1 } },
-    ]
-  },
-  {
-    id: 30,
-    text: '你理想中的DL球迷社群是？',
-    options: [
-      { text: '热闹活跃，大家打成一片', scores: { EI: 2 } },
-      { text: '有深度讨论的技术群', scores: { IN: 2 } },
-      { text: '和谐友好，互相尊重', scores: { IF: 2 } },
-      { text: '有组织有纪律的正规组织', scores: { IJ: 2 } },
-      { text: '可以自由分享资源', scores: { NP: 1 } },
-    ]
-  },
-  {
-    id: 31,
-    text: '你会为林书豪购买什么？',
-    options: [
-      { text: 'CBA/NBA正版球衣', scores: { SF: 2 } },
-      { text: '他的自传和周边', scores: { NF: 2 } },
-      { text: '比赛门票和机酒', scores: { EP: 2 } },
-      { text: '不太会买周边', scores: { IN: 2 } },
-      { text: '偶尔买一点支持一下', scores: { SP: 1 } },
-    ]
-  },
-  {
-    id: 32,
-    text: '林书豪比赛中失误时，你？',
-    options: [
-      { text: '没关系继续支持他', scores: { EF: 2 } },
-      { text: '理解这是比赛的一部分', scores: { TJ: 2 } },
-      { text: '有点失望但能接受', scores: { IP: 1, TP: 1 } },
-      { text: '分析失误原因和解决办法', scores: { TN: 2 } },
-      { text: '可惜了，下次加油', scores: { SF: 1 } },
-    ]
-  },
-  {
-    id: 33,
-    text: '你喜欢哪种林书豪新闻？',
-    options: [
-      { text: '比赛报道和数据统计', scores: { ST: 2 } },
-      { text: '场外生活和个人动态', scores: { SF: 2 } },
-      { text: '深度专访和背后故事', scores: { NF: 2 } },
-      { text: '未来规划和职业发展', scores: { NT: 2 } },
-      { text: '各种都想看', scores: { EN: 1 } },
-    ]
-  },
-  {
-    id: 34,
-    text: '如果你也是篮球运动员，你会？',
-    options: [
-      { text: '和林书豪同队并肩作战', scores: { EF: 2 } },
-      { text: '作为对手来场精彩对决', scores: { EP: 2 } },
-      { text: '专心研究他的技术特点', scores: { IN: 2 } },
-      { text: '不太想这些有的没的', scores: { IS: 2 } },
-      { text: '学习他的领导力', scores: { IJ: 1 } },
-    ]
-  },
-  {
-    id: 35,
-    text: '你用什么方式支持林书豪？',
-    options: [
-      { text: '去现场看球加油', scores: { EI: 2 } },
-      { text: '社交媒体点赞转发', scores: { EN: 2 } },
-      { text: '默默关注不张扬', scores: { IP: 2 } },
-      { text: '买周边支持他事业', scores: { SF: 2 } },
-      { text: '和朋友安利他', scores: { EI: 1 } },
-    ]
-  },
-  {
-    id: 36,
-    text: '你怎样评价林书豪的球商？',
-    options: [
-      { text: '顶级，能读懂比赛', scores: { IN: 2 } },
-      { text: '很高，阅读防守能力强', scores: { TN: 2 } },
-      { text: '够用，但还需提升', scores: { SJ: 2 } },
-      { text: '这个不好评价', scores: { IF: 1, IN: 1 } },
-      { text: '在亚裔球员里算很好了', scores: { SF: 1 } },
-    ]
-  },
-  {
-    id: 37,
-    text: '林书豪夺冠时你的心情是？',
-    options: [
-      { text: '比他本人还激动', scores: { EF: 2 } },
-      { text: '欣慰，努力终有回报', scores: { IF: 2 } },
-      { text: '高兴，这冠军实至名归', scores: { TF: 2 } },
-      { text: '平静，为他感到高兴', scores: { IP: 2 } },
-      { text: '感动到想哭', scores: { NF: 1 } },
-    ]
-  },
-  {
-    id: 38,
-    text: '你希望林书豪和谁合作？',
-    options: [
-      { text: '其他华裔球员', scores: { SF: 2 } },
-      { text: '顶级球星冲击冠军', scores: { NT: 2 } },
-      { text: '年轻球员传授经验', scores: { IF: 2 } },
-      { text: '谁都好，看缘分', scores: { NP: 2 } },
-      { text: '希望他单核带队证明自己', scores: { TJ: 1 } },
-    ]
-  },
-  {
-    id: 39,
-    text: '你怎样看待林书豪的职业生涯？',
-    options: [
-      { text: '非常励志的逆袭故事', scores: { NF: 2 } },
-      { text: '充满起伏但精彩纷呈', scores: { NP: 2 } },
-      { text: '稳定输出值得尊重', scores: { SJ: 2 } },
-      { text: '足够成功，没有遗憾', scores: { TF: 2 } },
-      { text: '未来还可以更精彩', scores: { EN: 1 } },
-    ]
-  },
-  {
-    id: 40,
-    text: '如果用一个词形容你作为DL球迷，你选？',
-    options: [
-      { text: '忠诚 - 一直支持', scores: { IJ: 2 } },
-      { text: '狂热 - 热情满满', scores: { EP: 2 } },
-      { text: '理性 - 客观分析', scores: { IT: 2 } },
-      { text: '佛系 - 开心就好', scores: { IP: 2 } },
-      { text: '专业 - 懂球懂他', scores: { IN: 1 } },
+    id: 20, text: '如果大连的队伍再次夺冠，你会？', options: [
+      { text: '去现场疯狂庆祝', scores: 'A', tags: ['热血派'] },
+      { text: '发朋友圈庆祝', scores: 'A', tags: ['社交球迷'] },
+      { text: '在家默默流泪', scores: 'A', tags: ['热血派'] },
+      { text: '去酒吧和球迷一起庆祝', scores: 'A', tags: ['社交球迷'] },
+      { text: '平静地看着直播', scores: 'E', tags: ['中立派'] },
     ]
   },
 ]

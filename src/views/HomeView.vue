@@ -9,6 +9,14 @@ function startTest() {
   store.reset()
   router.push('/test')
 }
+
+function goResult() {
+  router.push('/result')
+}
+
+function goList() {
+  router.push('/list')
+}
 </script>
 
 <template>
@@ -16,33 +24,58 @@ function startTest() {
     <div class="container">
       <div class="hero">
         <div class="hero-image">
-          <img src="/images/hero-placeholder.svg" alt="林书豪" />
+          <img src="/images/hero-placeholder.svg" alt="大连队" />
         </div>
-        <h1 class="title">DL球迷 MBTI 测试</h1>
-        <p class="subtitle">探索你与Jeremy Lin的灵魂共鸣</p>
+        <h1 class="title">大连球迷 DLTI 测试</h1>
+        <p class="subtitle">我们相信世界上存在不同种类的大连球迷</p>
+        <p class="subtitle">此网页采用CJFX（瞎鸡额分析）技术进行分类</p>
       </div>
 
       <div class="intro">
         <div class="intro-item">
-          <span class="icon">40</span>
+          <span class="icon">20</span>
           <span class="text">道测试题</span>
         </div>
         <div class="intro-item">
-          <span class="icon">16</span>
-          <span class="text">种人格类型</span>
+          <span class="icon">12</span>
+          <span class="text">种球迷类型</span>
         </div>
         <div class="intro-item">
           <span class="icon">1</span>
-          <span class="text">个灵魂契合</span>
+          <span class="text">您的类型</span>
         </div>
       </div>
 
-      <button class="start-btn" @click="startTest">
-        开始测试
-        <span class="arrow">→</span>
-      </button>
+      <!-- 如果有缓存结果，显示继续按钮 -->
+      <template v-if="store.isCompleted && store.result">
+        <button class="start-btn" @click="goResult">
+          查看结果
+          <span class="arrow">→</span>
+        </button>
+        <div class="resume-btns">
+          <button class="text-btn" @click="startTest">重新测试</button>
+          <button class="text-btn" @click="goList">查看全部</button>
+        </div>
+      </template>
+      <!-- 如果有缓存但未完成，显示继续测试 -->
+      <template v-else-if="Object.keys(store.answers).length > 0">
+        <button class="start-btn" @click="startTest">
+          继续测试
+          <span class="arrow">→</span>
+        </button>
+        <div class="resume-btns">
+          <button class="text-btn" @click="startTest">重新开始</button>
+          <button class="text-btn" @click="goList">查看全部</button>
+        </div>
+      </template>
+      <template v-else>
+        <button class="start-btn" @click="startTest">
+          开始测试
+          <span class="arrow">→</span>
+        </button>
+      </template>
 
-      <p class="tip">约需 5 分钟</p>
+      <p class="tip">约需 2 分钟</p>
     </div>
   </div>
 </template>
@@ -156,6 +189,26 @@ function startTest() {
 
 .start-btn:active .arrow {
   transform: translateX(4px);
+}
+
+.resume-btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.text-btn:active {
+  opacity: 0.7;
 }
 
 .tip {

@@ -22,11 +22,19 @@ function restart() {
   router.push('/')
 }
 
+function goHome() {
+  router.push('/')
+}
+
+function goList() {
+  router.push('/list')
+}
+
 function shareResult() {
-  const text = `我是DL球迷MBTI中的${result.value?.type}型！${result.value?.subtitle}`
+  const text = `我是大连队DLTI中的${result.value?.type}型！${result.value?.subtitle}`
   if (navigator.share) {
     navigator.share({
-      title: 'DL球迷MBTI测试',
+      title: '大连队DLTI测试',
       text: text,
       url: window.location.origin
     })
@@ -41,7 +49,7 @@ function shareResult() {
   <div class="result-page" v-if="result">
     <div class="result-card" :style="{ '--primary': result.colors.primary, '--accent': result.colors.accent }">
       <div class="avatar-section">
-        <div class="avatar-frame">
+        <div class="type-avatar">
           <img
             :src="result.image"
             :alt="result.name"
@@ -49,13 +57,12 @@ function shareResult() {
             @error="onImgError"
             :class="{ loaded: imgLoaded }"
           />
-          <div class="avatar-fallback" v-if="!imgLoaded">
-            <span class="type-code">{{ result.type }}</span>
+          <div v-if="!imgLoaded" class="type-avatar-fallback" :style="{ background: result.colors.primary }">
+            <span>{{ result.type }}</span>
           </div>
         </div>
       </div>
 
-      <div class="type-badge">{{ result.type }}</div>
       <h1 class="name">{{ result.name }}</h1>
       <p class="subtitle">{{ result.subtitle }}</p>
 
@@ -85,20 +92,36 @@ function shareResult() {
       <div class="scores-section">
         <h3>维度分析</h3>
         <div class="scores-grid">
-          <div v-for="(score, key) in result.scoresDisplay" :key="key" class="score-item">
+          <div
+            v-for="(score, key) in result.scoresDisplay"
+            :key="key"
+            class="score-item"
+            :class="{ locked: score.type === 'I' }"
+          >
             <div class="score-header">
               <span class="score-name">{{ score.name }}</span>
-              <span class="score-value">{{ score.value >= 0 ? '+' : '' }}{{ score.value }}</span>
+              <span class="score-value">{{ score.type === 'I' ? '?' : score.value >= 0 ? '+' + score.value : score.value }}</span>
             </div>
             <div class="score-bar">
               <div
                 class="score-fill"
-                :style="{ width: Math.min(Math.abs(score.value) * 10, 100) + '%' }"
+                :style="{ width: score.type === 'I' ? '0%' : Math.min(Math.abs(score.value) * 10, 100) + '%' }"
               ></div>
             </div>
-            <div class="score-type">{{ score.type }}</div>
+            <div class="score-type">{{ score.type === 'I' ? '???' : score.type }}</div>
           </div>
         </div>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn secondary" @click="goHome">
+          <span class="icon">←</span>
+          返回首页
+        </button>
+        <button class="action-btn secondary" @click="goList">
+          <span class="icon">☰</span>
+          查看全部
+        </button>
       </div>
 
       <div class="actions">
@@ -158,55 +181,40 @@ function shareResult() {
   margin-bottom: 0.75rem;
 }
 
-.avatar-frame {
-  width: 120px;
-  height: 120px;
+.type-avatar {
+  width: 140px;
+  height: 140px;
   margin: 0 auto;
-  border-radius: 50%;
-  border: 3px solid var(--accent, #3b82f6);
+  border-radius: 16px;
   overflow: hidden;
-  background: #f5f5f5;
   position: relative;
+  background: #f5f5f5;
 }
 
-.avatar-frame img {
+.type-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  inset: 0;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-.avatar-frame img.loaded {
+.type-avatar img.loaded {
   opacity: 1;
 }
 
-.avatar-fallback {
+.type-avatar-fallback {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
 }
 
-.type-code {
-  font-size: 2.25rem;
+.type-avatar-fallback span {
+  font-size: 2.5rem;
   font-weight: 700;
   color: #fff;
-}
-
-.type-badge {
-  display: inline-block;
-  padding: 0.375rem 1rem;
-  background: var(--primary);
-  color: #fff;
-  font-size: 1.25rem;
-  font-weight: 700;
-  border-radius: 6px;
-  margin: 0.5rem 0;
 }
 
 .name {
@@ -366,6 +374,15 @@ function shareResult() {
   text-align: center;
 }
 
+.score-item.locked {
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.score-item.locked .score-fill {
+  background: #ccc;
+}
+
 .actions {
   display: flex;
   gap: 0.75rem;
@@ -438,13 +455,9 @@ function shareResult() {
     border-radius: 16px;
   }
 
-  .avatar-frame {
+  .type-avatar {
     width: 100px;
     height: 100px;
-  }
-
-  .type-code {
-    font-size: 1.75rem;
   }
 
   .name {
