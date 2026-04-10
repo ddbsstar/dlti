@@ -32,7 +32,7 @@ export const questions = [
   },
   {
     id: 4, text: '球队在一场艰难的比赛中绝杀你会？', options: [
-      { text: '怒爆粗口发泄之前的郁闷', scores: 'C', tags: ['战斗派', '王大爷'] },
+      { text: '怒爆粗口（CNXM）发泄之前的郁闷', scores: 'C', tags: ['战斗派', '王大爷'] },
       { text: '和周围的人左拥右抱，一起庆祝', scores: 'A', tags: ['热血派', '远征军'] },
       { text: '冷静的起来鼓掌表达开心', scores: 'B', tags: ['理性派'] },
       { text: '没有完全感到兴奋，因为之前的表现不满足预期', scores: 'D', tags: ['死忠派'] },
@@ -45,7 +45,7 @@ export const questions = [
       { text: '严格遵守规则，认为文明观赛是对的', scores: 'D', tags: ['死忠派'] },
       { text: '保持沉默，心里十分不认可这种限制', scores: 'C', tags: ['战斗派'] },
       { text: '我并不关心我只是看球的', scores: 'E', tags: ['中立派'] },
-      { text: '我可去XXX的', scores: 'C', tags: ['战斗派'] },
+      { text: '我可去喃爹个鸡额的', scores: 'C', tags: ['战斗派'] },
       { text: '我们这一次一定要体现出大连文明城市', scores: 'A', tags: ['热血派', '王大爷'] },
     ]
   },
@@ -61,7 +61,7 @@ export const questions = [
   },
   {
     id: 7, text: '你会为大连队做最大的事是？', options: [
-      { text: '去现场支持大连队', scores: 'A', tags: ['热��派', '远征军'] },
+      { text: '去现场支持大连队', scores: 'A', tags: ['热血派', '远征军'] },
       { text: '不畏路途前去远征客场', scores: 'A', tags: ['远征军'] },
       { text: '我已经将大连队徽纹在身上!', scores: 'D', tags: ['收藏癖'] },
       { text: '为大连队流眼泪', scores: 'A', tags: ['热血派'] },
