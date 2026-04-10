@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install pinia vue-router)",
+      "Bash(ls \"C:\\\\Users\\\\94759\\\\WebstormProjects\\\\dlti\\\\public\\\\images\"\" 2>/dev/null || mkdir -p \"C:Users94759WebstormProjectsdltipublicimages \")",
+      "Bash(curl -s http://localhost:5174)",
+      "Bash(curl -s http://localhost:5174/images/istj.svg)"
+    ]
+  }
+}
