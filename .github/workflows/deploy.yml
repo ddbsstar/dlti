@@ -35,4 +35,3 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: dlti
           directory: dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
