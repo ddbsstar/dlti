@@ -15,20 +15,24 @@ function calcResult(answers) {
   });
 
   // 1. 特殊>=4
-  const specials = ['王大爷','辽宁铁人','云端球迷','冠军球迷','对线王','懂王'];
+  const specials = ['王大爷','辽宁铁人','云球迷','冠军球迷','对线王','懂王'];
   for (const s of specials) {
+    if (s === '辽宁铁人' && counts[s] >= 3) return s;
     if (counts[s] >= 4) return s;
   }
 
+  // 收藏癖需要>=3
+  if ((counts['收藏癖']||0) >= 3) return '收藏癖';
+
   // 2. tags最多的
-  const bases = ['热血派','理性派','战斗派','传统派','中立派','活化石','战术大师','球迷组织成员','数据帝','云球迷','远征军','社交球迷','收藏癖','心碎球迷','养生球迷','夜猫子'];
+  const bases = ['远征军','社交球迷','收藏癖','辽宁铁人','热血派','理性派','战斗派','死忠派','传统派','中立派','活化石','战术大师','球迷组织成员','数据帝','云球迷','心碎球迷','养生球迷','夜猫子'];
   let max = null, maxVal = 0;
   for (const b of bases) {
     if ((counts[b]||0) > maxVal) { maxVal = counts[b]; max = b; }
   }
 
-  // 3. tags>=1用tags，否则用基础分值
-  if (max && maxVal >= 1) return max;
+  // 3. tags>=2用tags，否则用基础分值
+  if (max && maxVal >= 2) return max;
 
   let maxS = 'A', maxSVal = 0;
   Object.entries(scores).forEach(([k,v]) => { if (v > maxSVal) { maxSVal = v; maxS = k; } });
@@ -43,7 +47,7 @@ Object.values(personalities).forEach(p => { typeStats[p.name] = 0; });
 // 测试
 for (let i = 0; i < 10000; i++) {
   const ans = {};
-  for (let q = 1; q <= 20; q++) ans[q] = Math.floor(Math.random() * 5);
+  for (let q = 1; q <= 21; q++) ans[q] = Math.floor(Math.random() * (q === 21 ? 8 : 6));
   const r = calcResult(ans);
   if (r) typeStats[r] = (typeStats[r] || 0) + 1;
 }

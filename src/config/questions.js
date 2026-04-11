@@ -5,17 +5,18 @@
 export const questions = [
   {
     id: 1, text: '观看大连队比赛时，你更喜欢？', options: [
-      { text: '去现场感受热血氛围，我是球迷组织的一员', scores: 'A', tags: ['热血派', '远征军'] },
+      { text: '去现场感受热血氛围，我是球迷组织的一员', scores: 'A', tags: ['热血派'] },
       { text: '约朋友一起喝凯龙看，边看边聊', scores: 'E', tags: ['中立派', '社交球迷'] },
       { text: '安静在家看，仔细分析战术', scores: 'B', tags: ['理性派'] },
-      { text: '去现场看球加油', scores: 'C', tags: ['战斗派', '远征军'] },
+      { text: '去现场看球加油', scores: 'C', tags: ['中立派'] },
       { text: '我从来不看', scores: 'D', tags: ['死忠派', '辽宁铁人'] },
+      { text: '追随球队跑遍全国所有客场', scores: 'A', tags: [] },
     ]
   },
   {
-    id: 2, text: '球队苦苦保级，难求一胜，你会？', options: [
-      { text: '持续支持大连队，直至最后一刻', scores: 'A', tags: ['热血派'] },
-      { text: '减少观看次数', scores: 'B', tags: ['理性派', '辽宁铁人'] },
+    id: 2, text: '球队保级阶段，一胜难求，你会？', options: [
+      { text: '持续支持大连队，包括客场比赛', scores: 'A', tags: ['热血派'] },
+      { text: '减少观看主场次数，客场就不去了', scores: 'B', tags: ['理性派'] },
       { text: '没什么特别感觉，看淡了', scores: 'E', tags: ['中立派'] },
       { text: '发帖抱怨：首发都是关系户', scores: 'C', tags: ['战斗派'] },
       { text: '骂球队高层，要求退钱', scores: 'D', tags: ['死忠派'] },
@@ -33,7 +34,7 @@ export const questions = [
   {
     id: 4, text: '球队在一场艰难的比赛中绝杀你会？', options: [
       { text: '怒爆粗口（CNXM）发泄之前的郁闷', scores: 'C', tags: ['战斗派', '王大爷'] },
-      { text: '和周围的人左拥右抱，一起庆祝', scores: 'A', tags: ['热血派', '远征军'] },
+      { text: '和周围的人左拥右抱，一起庆祝', scores: 'A', tags: ['热血派'] },
       { text: '冷静的起来鼓掌表达开心', scores: 'B', tags: ['理性派'] },
       { text: '没有完全感到兴奋，因为之前的表现不满足预期', scores: 'D', tags: ['死忠派'] },
       { text: '脱下上衣，直接冲场', scores: 'C', tags: ['战斗派', '王大爷'] },
@@ -42,11 +43,11 @@ export const questions = [
   {
     id: 5, text: '对于"文明观赛，争做滨城好青年"你的态度是？', options: [
       // ... 继续
-      { text: '严格遵守规则，认为文明观赛是对的', scores: 'D', tags: ['死忠派'] },
-      { text: '保持沉默，心里十分不认可这种限制', scores: 'C', tags: ['战斗派'] },
+      { text: '严格遵守规则，认为文明观赛是对的', scores: 'D', tags: ['中立派'] },
+      { text: '保持沉默，心里十分不认可这种限制', scores: 'C', tags: ['理性派'] },
       { text: '我并不关心我只是看球的', scores: 'E', tags: ['中立派'] },
       { text: '我可去喃爹个鸡额的', scores: 'C', tags: ['战斗派'] },
-      { text: '我们这一次一定要体现出大连文明城市', scores: 'A', tags: ['热血派', '王大爷'] },
+      { text: '我们这一次一定要体现出大连文明城市', scores: 'A', tags: ['王大爷'] },
     ]
   },
   // 简化处理 - 批量重写剩余题目
@@ -61,11 +62,12 @@ export const questions = [
   },
   {
     id: 7, text: '你会为大连队做最大的事是？', options: [
-      { text: '去现场支持大连队', scores: 'A', tags: ['热血派', '远征军'] },
-      { text: '不畏路途前去远征客场', scores: 'A', tags: ['远征军'] },
+      { text: '去主客场支持大连队', scores: 'A', tags: ['热血派'] },
+      { text: '一个赛季不畏路途跑过一半的客场', scores: 'A', tags: ['远征军'] },
       { text: '我已经将大连队徽纹在身上!', scores: 'D', tags: ['收藏癖'] },
       { text: '为大连队流眼泪', scores: 'A', tags: ['热血派'] },
       { text: '足球只是生活的一部分', scores: 'E', tags: ['中立派', '云球迷'] },
+      { text: '追随球队远征过全国所有客场', scores: 'A', tags: ['远征军'] },
     ]
   },
   {
@@ -74,7 +76,7 @@ export const questions = [
       { text: '冷静地列举事实反驳', scores: 'B', tags: ['理性派'] },
       { text: '默默拉黑不想争论', scores: 'E', tags: ['中立派'] },
       { text: '进行对线，骂个你死我活', scores: 'C', tags: ['战斗派'] },
-      { text: '举报评论不想看到', scores: 'C', tags: ['战斗派'] },
+      { text: '举报评论不想看到', scores: 'C', tags: ['理性派'] },
     ]
   },
   {
@@ -92,7 +94,7 @@ export const questions = [
       { text: '请教足球技巧和训练方法', scores: 'B', tags: ['理性派'] },
       { text: '安静地要个签名就好', scores: 'D', tags: ['收藏癖'] },
       { text: '聊聊人生规划和信仰', scores: 'B', tags: ['理性派'] },
-      { text: '质问他，为什么那个点球没进', scores: 'C', tags: ['战斗派'] },
+      { text: '质问他，为什么那个点球没进', scores: 'C', tags: ['辽宁铁人'] },
     ]
   },
   {
@@ -127,14 +129,15 @@ export const questions = [
       { text: '加大投入，冲击冠军', scores: 'A', tags: ['热血派', '冠军球迷'] },
       { text: '稳定能有个球看就行', scores: 'E', tags: ['中立派'] },
       { text: '做好青训，着眼未来', scores: 'B', tags: ['理性派'] },
-      { text: '专注公益和球迷文化', scores: 'A', tags: ['热血派'] },
+      { text: '专注公益和球迷文化，包括远征组织', scores: 'A', tags: ['热血派'] },
       { text: '做自己喜欢的事就好', scores: 'E', tags: ['中立派'] },
+      { text: '建立专业远征球迷会组织', scores: 'A', tags: ['远征军'] },
     ]
   },
   {
     id: 15, text: '你是什么时候开始喜欢大连队的？', options: [
       { text: '这是一个问题？', scores: 'D', tags: ['死忠派'] },
-      { text: '外地人，来大连后才知道的', scores: 'D', tags: ['死忠派', '收藏癖'] },
+      { text: '外地人，来大连后才知道的', scores: 'D', tags: ['死忠派'] },
       { text: '我从小就是大连球迷', scores: 'D', tags: ['死忠派'] },
       { text: '朋友推荐后入坑的', scores: 'A', tags: ['热血派', '冠军球迷'] },
       { text: '最近才开始关注', scores: 'E', tags: ['中立派', '云球迷'] },
@@ -144,7 +147,7 @@ export const questions = [
     id: 16, text: '用什么词形容大连队最贴切？', options: [
       { text: '热血 - 永不放弃', scores: 'A', tags: ['热血派'] },
       { text: '稳定 - 持续输出', scores: 'B', tags: ['理性派'] },
-      { text: '血臭 - 不惜看吧', scores: 'C', tags: ['战斗派'] },
+      { text: '血臭 - 不惜看吧', scores: 'C', tags: ['辽宁铁人'] },
       { text: '传承 - 足球城', scores: 'D', tags: ['死忠派'] },
       { text: '坚持 - 从不认输', scores: 'A', tags: ['热血派'] },
     ]
@@ -155,7 +158,7 @@ export const questions = [
       { text: '稳定立足中超', scores: 'D', tags: ['死忠派'] },
       { text: '转型培养新人', scores: 'B', tags: ['理性派'] },
       { text: '做自己想做的事就好', scores: 'E', tags: ['中立派'] },
-      { text: '各级别大连队都稳定运营', scores: 'D', tags: ['死忠派', '收藏癖'] },
+      { text: '各级别大连队都稳定运营', scores: 'D', tags: ['中立派'] },
     ]
   },
   {
@@ -163,17 +166,17 @@ export const questions = [
       { text: '我自己就是球员', scores: 'B', tags: ['理性派'] },
       { text: '踢从小就踢球', scores: 'B', tags: ['理性派'] },
       { text: '我只看，不踢', scores: 'E', tags: ['云球迷'] },
-      { text: '以前踢，现在只看', scores: 'D', tags: ['死忠派'] },
+      { text: '远征客场就是我的训练', scores: 'D', tags: ['远征军'] },
       { text: '看球就够了，踢球太累', scores: 'E', tags: ['中立派'] },
     ]
   },
   {
     id: 19, text: '你怎么看Ultras死忠球迷文化?', options: [
-      { text: '这就是球迷该有的样子', scores: 'A', tags: ['热血派', '远征军'] },
+      { text: '这就是球迷该有的样子', scores: 'A', tags: ['死忠派'] },
       { text: '太极端，不太能接受', scores: 'E', tags: ['中立派'] },
       { text: '很热血，但要注意安全', scores: 'A', tags: ['热血派'] },
       { text: '尊重他们的选择', scores: 'E', tags: ['中立派'] },
-      { text: '关我什么事', scores: 'D', tags: ['死忠派', '辽宁铁人'] },
+      { text: '关我什么事', scores: 'D', tags: ['中立派'] },
     ]
   },
   {
@@ -183,6 +186,19 @@ export const questions = [
       { text: '在家默默流泪', scores: 'A', tags: ['热血派'] },
       { text: '去酒吧和球迷一起庆祝', scores: 'A', tags: ['社交球迷'] },
       { text: '平静地看着直播', scores: 'E', tags: ['中立派'] },
+    ]
+  },
+  {
+    id: 21, text: '以下哪个行为你做过别人没做过？', options: [
+      { text: '我曾经光梁指挥球迷', scores: 'A', tags: ['王大爷'] },
+      { text: '我曾经一个赛季去过一半的客场', scores: 'B', tags: ['远征军'] },
+      { text: '我收藏了球队所有版本的球衣', scores: 'C', tags: ['收藏癖'] },
+      { text: '我看球从万达时期就开始了', scores: 'D', tags: ['死忠派'] },
+      { text: '我只在网上看球，从不去现场', scores: 'E', tags: ['云球迷'] },
+      { text: '我组织过球迷会大家一起远征', scores: 'A', tags: ['远征军'] },
+      { text: '我主场身着红色被全场喊滚', scores: 'C', tags: ['辽宁铁人'] },
+      { text: '我看球主要为了见朋友喝酒吹水', scores: 'D', tags: ['社交球迷'] },
+      { text: '以上都不是', scores: 'E', tags: [] },
     ]
   },
 ]
