@@ -84,10 +84,12 @@ export const useTestStore = defineStore('test', () => {
       }
     }
 
-    // 1. 特殊类型>=3优先
+    // 1. 特殊类型：辽宁铁人/收藏癖>=3，其他>=4
     let specialType = null, specialCount = 0
     for (const n of specialNames) {
-      if (tagCounts[n] >= 3 && tagCounts[n] > specialCount) {
+      let threshold = 4
+      if (n === '辽宁铁人' || n === '收藏癖') threshold = 3
+      if (tagCounts[n] >= threshold && tagCounts[n] > specialCount) {
         specialCount = tagCounts[n]
         specialType = n
       }
@@ -99,7 +101,7 @@ export const useTestStore = defineStore('test', () => {
       }
     }
 
-    // 2. 所有类型按最多匹配
+    // 2. 所有类型按最多匹配（需要>=2）
     const allNames = [
       '热血派', '理性派', '战斗派', '死忠派', '中立派',
       '远征军', '社交球迷', '收藏癖', '云球迷'
@@ -113,7 +115,7 @@ export const useTestStore = defineStore('test', () => {
       }
     }
 
-    if (maxTag && maxCount >= 1) {
+    if (maxTag && maxCount >= 2) {
       const id = Object.entries(personalities).find(([i, p]) => p.name === maxTag)?.[0]
       if (id && personalities[id]) {
         return { type: id, ...personalities[id], matchCount: maxCount, scoresDisplay: buildScoresDisplay(tagCounts) }
