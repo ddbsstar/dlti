@@ -127,9 +127,9 @@ export const personalities = {
     subtitle: '大连老球迷典范',
     image: '/images/wangdaye.jpg',
     colors: { primary: '#f44336', secondary: '#d32f2f', accent: '#f44336' },
-    traits: ['激情', '传统', '豪爽', '仗义'],
+    traits: ['激情', '传统', '杀呀', '粉碎性'],
     description: '你是大连球迷界的「王大爷」！脱上衣、喊口号、文明城市我做代表。年轻球迷都得服我，我是大连球迷的活招牌！',
-    strengths: ['气氛担当', '经验丰富', '激情满满', '大连名片'],
+    strengths: ['气氛担当', '文明使者', '激情满满', '大连名片'],
     compatibility: '受所有球迷尊敬',
     quote: '"我们这一次一定要体现出大连文明城市!"'
   },

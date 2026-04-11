@@ -8,7 +8,13 @@
       "Bash(npm run build)",
       "Bash(node -e \"\nconst { questions, personalities } = require\\(''./src/config/questions.js''\\);\nconst allTypes = Object.values\\(personalities\\);\n\n// 简化计算：每个选项的tags + 基础分值\nfunction calcResult\\(answers\\) {\n  const counts = {};\n  \n  Object.entries\\(answers\\).forEach\\(\\([qId, optIdx]\\) => {\n    const q = questions.find\\(q => q.id === Number\\(qId\\)\\);\n    if \\(!q || !q.options[optIdx]\\) return;\n    const opt = q.options[optIdx];\n    \n    // 基础分值转类型名\n    const baseMap = { ''A'': ''热血派'', ''B'': ''理性派'', ''C'': ''战斗派'', ''D'': ''传统派'', ''E'': ''中立派'' };\n    if \\(baseMap[opt.scores]\\) {\n      counts[baseMap[opt.scores]] = \\(counts[baseMap[opt.scores]] || 0\\) + 1;\n    }\n    // tags\n    if \\(opt.tags\\) {\n      opt.tags.forEach\\(t => { counts[t] = \\(counts[t] || 0\\) + 1; }\\);\n    }\n  }\\);\n  \n  // 特殊类型>=4优先\n  const specials = [''王大爷'',''辽宁铁人'',''云端球迷'',''冠军球迷'',''对线王'',''懂王''];\n  for \\(const s of specials\\) {\n    if \\(counts[s] >= 4\\) return s;\n  }\n  \n  // 最多匹配\n  let max = null, maxVal = 0;\n  Object.entries\\(counts\\).forEach\\(\\([k,v]\\) => { if \\(v > maxVal\\) { maxVal = v; max = k; } }\\);\n  return max;\n}\n\n// 统计每个类型出现次数\nconst typeStats = {};\nallTypes.forEach\\(t => { typeStats[t.name] = 0; }\\);\n\n// 模拟随机测试10000次\nfor \\(let i = 0; i < 10000; i++\\) {\n  const ans = {};\n  for \\(let q = 1; q <= 20; q++\\) {\n    ans[q] = Math.floor\\(Math.random\\(\\) * 5\\);\n  }\n  const result = calcResult\\(ans\\);\n  if \\(result && typeStats[result] !== undefined\\) typeStats[result]++;\n}\n\n// 排序输出\nconst sorted = Object.entries\\(typeStats\\).sort\\(\\(a,b\\) => b[1] - a[1]\\);\nconsole.log\\(''\\\\n=== 随机10000次测试结果 ===''\\);\nconsole.log\\(''类型          次数   概率''\\);\nconsole.log\\(''------------------------''\\);\nsorted.forEach\\(\\([type, count]\\) => {\n  console.log\\(type.padEnd\\(12\\) + count + ''  '' + \\(count/100\\).toFixed\\(1\\) + ''%''\\);\n}\\);\n\")",
       "Bash(node test-dist.mjs)",
-      "Bash(node test-12.mjs)"
+      "Bash(node test-12.mjs)",
+      "Bash(git push)",
+      "Bash(git push --set-upstream origin main)",
+      "Bash(echo $HTTP_PROXY)",
+      "Bash(echo $HTTPS_PROXY)",
+      "Bash(gh auth status)",
+      "Bash(git config --list)"
     ]
   }
 }
