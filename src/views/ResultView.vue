@@ -8,6 +8,8 @@ const store = useTestStore()
 
 const result = computed(() => store.result)
 const imgLoaded = ref(false)
+const showShareModal = ref(false)
+const copySuccess = ref(false)
 
 function onImgLoad() {
   imgLoaded.value = true
@@ -30,17 +32,27 @@ function goList() {
   router.push('/list')
 }
 
-function shareResult() {
-  const text = `我是大连队DLTI中的${result.value?.type}型！${result.value?.subtitle}`
-  if (navigator.share) {
-    navigator.share({
-      title: '大连队DLTI测试',
-      text: text,
-      url: window.location.origin
-    })
-  } else {
-    navigator.clipboard.writeText(text)
-    alert('已复制到剪贴板！')
+function openShareModal() {
+  showShareModal.value = true
+  copySuccess.value = false
+}
+
+function closeShareModal() {
+  showShareModal.value = false
+}
+
+async function copyLink() {
+  const text = `我是大连队DLTI中的${result.value?.type}型！${result.value?.subtitle} - ${result.value?.description?.slice(0, 30)}...\n\n来测测你是哪种大连球迷：https://dlti.pages.dev/`
+
+  try {
+    await navigator.clipboard.writeText(text)
+    copySuccess.value = true
+    setTimeout(() => {
+      copySuccess.value = false
+    }, 2000)
+  } catch (err) {
+    copySuccess.value = false
+    alert('复制失败，请长按复制以下内容：\n\n' + text)
   }
 }
 </script>
@@ -113,6 +125,12 @@ function shareResult() {
         </div>
       </div>
 
+      <!-- 页面内边距，确保内容不被底部按钮遮挡 -->
+      <div class="bottom-spacer"></div>
+    </div>
+
+    <!-- 固定底部按钮 -->
+    <div class="fixed-actions">
       <div class="actions">
         <button class="action-btn secondary" @click="goHome">
           <span class="icon">←</span>
@@ -123,9 +141,8 @@ function shareResult() {
           查看全部
         </button>
       </div>
-
       <div class="actions">
-        <button class="action-btn primary" @click="shareResult">
+        <button class="action-btn primary" @click="openShareModal">
           <span class="icon">↗</span>
           分享结果
         </button>
@@ -135,6 +152,38 @@ function shareResult() {
         </button>
       </div>
     </div>
+
+    <!-- 分享弹窗 -->
+    <Teleport to="body">
+      <div v-if="showShareModal" class="share-overlay" @click="closeShareModal">
+        <div class="share-modal" @click.stop>
+          <button class="close-btn" @click="closeShareModal">×</button>
+
+          <h2>分享给朋友</h2>
+          <p class="share-desc">点击下方按钮复制内容，分享给朋友一起测试</p>
+
+          <div class="share-preview">
+            <div class="share-avatar">
+              <img :src="result.image" :alt="result.name" />
+            </div>
+            <div class="share-content">
+              <p class="share-type">我是{{ result.name }}</p>
+              <p class="share-text">{{ result.description?.slice(0, 50) }}...</p>
+            </div>
+          </div>
+
+          <button
+            class="copy-btn"
+            :class="{ success: copySuccess }"
+            @click="copyLink"
+          >
+            {{ copySuccess ? '✓ 已复制' : '点击复制' }}
+          </button>
+
+          <p class="share-link">https://dlti.pages.dev/</p>
+        </div>
+      </div>
+    </Teleport>
   </div>
 
   <div class="no-result" v-else>
@@ -148,7 +197,7 @@ function shareResult() {
   min-height: 100vh;
   min-height: 100dvh;
   padding: 1.5rem;
-  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  padding-bottom: 8rem;
   background: #f5f6f8;
   display: flex;
   align-items: flex-start;
@@ -383,10 +432,29 @@ function shareResult() {
   background: #ccc;
 }
 
+.bottom-spacer {
+  height: 1rem;
+}
+
+.fixed-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 1rem 1.5rem;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
 .actions {
   display: flex;
   gap: 0.75rem;
-  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.actions:last-child {
+  margin-bottom: 0;
 }
 
 .action-btn {
@@ -472,5 +540,123 @@ function shareResult() {
     padding: 0.75rem;
     font-size: 0.9rem;
   }
+}
+
+/* 分享弹窗 */
+.share-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+}
+
+.share-modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+  position: relative;
+}
+
+.share-modal .close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f0f0f0;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.share-modal h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.share-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.share-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.share-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.share-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.share-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.share-type {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.share-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.copy-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.copy-btn.success {
+  background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.copy-link {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 </style>
