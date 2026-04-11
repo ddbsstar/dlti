@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTestStore } from '../stores/testStore'
 import { personalities } from '../config/personalities'
@@ -7,6 +8,7 @@ const router = useRouter()
 const store = useTestStore()
 
 const personalityList = Object.entries(personalities).map(([key, p]) => ({ key, ...p }))
+const selectedType = ref(null)
 
 function goHome() {
   store.reset()
@@ -20,6 +22,14 @@ function goResult() {
 function goTest() {
   store.reset()
   router.push('/test')
+}
+
+function showDetail(item) {
+  selectedType.value = item
+}
+
+function closeDetail() {
+  selectedType.value = null
 }
 </script>
 
@@ -35,8 +45,8 @@ function goTest() {
         v-for="item in personalityList"
         :key="item.key"
         class="type-card"
-        :class="{ locked: item.key === 'I' }"
         :style="{ '--primary': item.colors.primary }"
+        @click="showDetail(item)"
       >
         <div class="type-avatar">
           <img :src="item.image" :alt="item.name" />
@@ -44,11 +54,6 @@ function goTest() {
         <div class="type-badge">{{ item.key }}</div>
         <div class="type-name">{{ item.name }}</div>
         <div class="type-subtitle">{{ item.subtitle }}</div>
-
-        <div v-if="item.key === 'I'" class="lock-overlay">
-          <span class="lock-icon">🔒</span>
-          <span class="lock-text">隐藏款</span>
-        </div>
       </div>
     </div>
 
@@ -62,6 +67,56 @@ function goTest() {
         我的结果
       </button>
     </div>
+
+    <!-- 详情弹窗 -->
+    <Teleport to="body">
+      <div v-if="selectedType" class="detail-overlay" @click="closeDetail">
+        <div class="detail-modal" @click.stop>
+          <button class="close-btn" @click="closeDetail">×</button>
+
+          <div class="detail-header">
+            <div class="detail-avatar">
+              <img :src="selectedType.image" :alt="selectedType.name" />
+            </div>
+            <div class="detail-badge">{{ selectedType.key }}</div>
+          </div>
+
+          <h2 class="detail-name">{{ selectedType.name }}</h2>
+          <p class="detail-subtitle">{{ selectedType.subtitle }}</p>
+
+          <div class="detail-desc">{{ selectedType.description }}</div>
+
+          <div class="detail-section">
+            <h3>特征</h3>
+            <div class="detail-tags">
+              <span v-for="trait in selectedType.traits" :key="trait" class="trait-tag">
+                {{ trait }}
+              </span>
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <h3>优点</h3>
+            <div class="detail-strengths">
+              <span v-for="strength in selectedType.strengths" :key="strength" class="strength-tag">
+                {{ strength }}
+              </span>
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <h3>适配</h3>
+            <p class="detail-compat">{{ selectedType.compatibility }}</p>
+          </div>
+
+          <div class="detail-quote">
+            <span class="quote-mark">"</span>
+            {{ selectedType.quote }}
+            <span class="quote-mark">"</span>
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -106,46 +161,22 @@ function goTest() {
   position: relative;
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
 .type-card:active {
   transform: scale(0.96);
-}
-
-.type-card.locked {
-  filter: blur(4px);
-  pointer-events: none;
-}
-
-.type-card.locked .lock-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 10;
-}
-
-.lock-icon {
-  font-size: 1.5rem;
-}
-
-.lock-text {
-  font-size: 0.7rem;
-  color: #fff;
-  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .type-avatar {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   margin: 0 auto 0.5rem;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid var(--primary);
+  border: 3px solid var(--primary);
 }
 
 .type-avatar img {
@@ -214,6 +245,151 @@ function goTest() {
   font-size: 1.1rem;
 }
 
+/* 详情弹窗 */
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+}
+
+.detail-modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 360px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f0f0f0;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.detail-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.detail-avatar {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 0.75rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--primary, #3b82f6);
+}
+
+.detail-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-badge {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary, #3b82f6);
+}
+
+.detail-name {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.detail-subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.detail-desc {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.detail-section {
+  margin-bottom: 1rem;
+}
+
+.detail-section h3 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.detail-tags, .detail-strengths {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.trait-tag, .strength-tag {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background: #f0f4ff;
+  color: #3b82f6;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.strength-tag {
+  background: #fef3e2;
+  color: #f59e0b;
+}
+
+.detail-compat {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.detail-quote {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.quote-mark {
+  font-size: 1.25rem;
+  opacity: 0.7;
+}
+
 /* 移动端适配 */
 @media (max-width: 375px) {
   .types-grid {
@@ -225,8 +401,13 @@ function goTest() {
   }
 
   .type-avatar {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .detail-avatar {
+    width: 80px;
+    height: 80px;
   }
 }
 </style>
